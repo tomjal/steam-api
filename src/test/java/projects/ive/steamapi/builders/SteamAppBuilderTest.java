@@ -3,7 +3,10 @@ package projects.ive.steamapi.builders;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Currency;
+import java.util.Date;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonParseException;
@@ -24,6 +27,7 @@ public class SteamAppBuilderTest {
     private static final long HALF_LIFE_APP_ID = 70L;
 
     private Map<Object, Object> halfLifeResultMap;
+    private Map<Object, Object> halfLifeResultMapWithTwoFieldReleaseDate;
 
     @Before
     public void setup() throws IOException {
@@ -35,6 +39,8 @@ public class SteamAppBuilderTest {
         ObjectMapper objectMapper = new ObjectMapper();
 
         halfLifeResultMap = objectMapper.readValue(new File("src/test/resources/app_id_70.json"), Map.class);
+        halfLifeResultMapWithTwoFieldReleaseDate = objectMapper.readValue(new File(
+            "src/test/resources/app_id_70_2_field_release_date.json"), Map.class);
     }
 
     @Test
@@ -110,6 +116,26 @@ public class SteamAppBuilderTest {
 
         Category singlePlayerCategory = new Category(2, "Single-player");
         Assert.assertTrue("Wrong category", steamApp.getCategories().contains(singlePlayerCategory));
+    }
+
+    @Test
+    public void shouldContainReleaseDataWhenThreeFields() throws ParseException {
+        SteamApp steamApp = SteamAppBuilder.createFromResultMap(halfLifeResultMap);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date releaseDate = sdf.parse("8/11/1998");
+
+        Assert.assertEquals("Release date not correct", releaseDate, steamApp.getReleaseDate());
+    }
+
+    @Test
+    public void shouldContainReleaseDataWhenTwoFields() throws ParseException {
+        SteamApp steamApp = SteamAppBuilder.createFromResultMap(halfLifeResultMapWithTwoFieldReleaseDate);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+        Date releaseDate = sdf.parse("11/1998");
+
+        Assert.assertEquals("Release date not correct", releaseDate, steamApp.getReleaseDate());
     }
 
 }

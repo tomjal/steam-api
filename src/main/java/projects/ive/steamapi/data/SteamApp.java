@@ -1,5 +1,6 @@
 package projects.ive.steamapi.data;
 
+import java.util.Date;
 import java.util.List;
 
 import projects.ive.steamapi.enums.Type;
@@ -22,6 +23,7 @@ public class SteamApp {
     private boolean availableForWindows;
     private boolean availableForMac;
     private List<Category> categories;
+    private Date releaseDate;
 
     public long getAppId() {
         return appId;
@@ -149,6 +151,14 @@ public class SteamApp {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
 }

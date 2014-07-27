@@ -1,9 +1,12 @@
 package projects.ive.steamapi.builders;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,6 +68,7 @@ public class SteamAppBuilder {
         parseMarketData(steamApp, dataMap);
         parsePlatformData(steamApp, dataMap);
         parseCategorieData(steamApp, dataMap);
+        parseReleaseData(steamApp, dataMap);
     }
 
     @SuppressWarnings(UNCHECKED)
@@ -106,6 +110,40 @@ public class SteamAppBuilder {
 
         List<String> publishers = (List<String>)dataMap.get(PUBLISHERS);
         steamApp.setPublishers(publishers);
+    }
+
+    @SuppressWarnings(UNCHECKED)
+    private static void parseReleaseData(SteamApp steamApp, Map<Object, Object> dataMap) {
+        Map<Object, Object> releaseMap = (Map<Object, Object>)dataMap.get("release_date");
+        String dateString = (String)releaseMap.get("date");
+
+        int numFields = dateString.split(" ").length;
+        switch (numFields) {
+        case 2:
+            SimpleDateFormat sdf2 = new SimpleDateFormat("MMM yyyy");
+
+            try {
+                Date releaseDate = sdf2.parse(dateString);
+                steamApp.setReleaseDate(releaseDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            break;
+        case 3:
+            SimpleDateFormat sdf3 = new SimpleDateFormat("dd MMM yyyy");
+
+            try {
+                Date releaseDate = sdf3.parse(dateString);
+                steamApp.setReleaseDate(releaseDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            break;
+        default:
+            // log error and don't parse
+        }
     }
 
     private static void parseGenericData(SteamApp steamApp, Map<Object, Object> dataMap) {
