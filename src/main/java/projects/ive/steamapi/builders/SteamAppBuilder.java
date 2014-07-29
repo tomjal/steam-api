@@ -160,7 +160,14 @@ public class SteamAppBuilder {
         String name = (String)dataMap.get(NAME);
         steamApp.setName(name);
 
-        Integer requiredAge = (Integer)dataMap.get(REQUIRED_AGE);
+        Integer requiredAge = null;
+
+        try {
+            requiredAge = (Integer)dataMap.get(REQUIRED_AGE);
+        } catch (ClassCastException e) {
+            requiredAge = Integer.valueOf((String)dataMap.get(REQUIRED_AGE));
+        }
+
         steamApp.setRequiredAge(requiredAge);
 
         String detailedDescription = (String)dataMap.get(DETAILED_DESCRIPTION);
