@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -76,6 +77,11 @@ public class SteamAppBuilder {
         List<Category> categories = new ArrayList<Category>();
 
         List<Object> categoriesMap = (List<Object>)dataMap.get("categories");
+
+        if (categoriesMap == null) {
+            return;
+        }
+
         for (Object mapObject : categoriesMap) {
             Map<Object, Object> categoryItemMap = (Map<Object, Object>)mapObject;
 
@@ -120,7 +126,7 @@ public class SteamAppBuilder {
         int numFields = dateString.split(" ").length;
         switch (numFields) {
         case 2:
-            SimpleDateFormat sdf2 = new SimpleDateFormat("MMM yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("MMM yyyy", Locale.US);
 
             try {
                 Date releaseDate = sdf2.parse(dateString);
@@ -131,7 +137,7 @@ public class SteamAppBuilder {
 
             break;
         case 3:
-            SimpleDateFormat sdf3 = new SimpleDateFormat("dd MMM yyyy");
+            SimpleDateFormat sdf3 = new SimpleDateFormat("d MMM yyyy", Locale.US);
 
             try {
                 Date releaseDate = sdf3.parse(dateString);
@@ -164,8 +170,10 @@ public class SteamAppBuilder {
         steamApp.setAboutTheGame(aboutTheGame);
 
         String supportedLanguagesRaw = (String)dataMap.get(SUPPORTED_LANGUAGES);
-        List<String> supportedLanguages = Arrays.asList(supportedLanguagesRaw.split("\\s*,\\s*"));
-        steamApp.setSupportedLanguages(supportedLanguages);
+        if (supportedLanguagesRaw != null) {
+            List<String> supportedLanguages = Arrays.asList(supportedLanguagesRaw.split("\\s*,\\s*"));
+            steamApp.setSupportedLanguages(supportedLanguages);
+        }
 
         String headerImage = (String)dataMap.get(HEADER_IMAGE);
         steamApp.setHeaderImage(headerImage);
