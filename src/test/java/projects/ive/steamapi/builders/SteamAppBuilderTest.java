@@ -28,6 +28,7 @@ public class SteamAppBuilderTest {
 
     private Map<Object, Object> halfLifeResultMap;
     private Map<Object, Object> halfLifeResultMapWithTwoFieldReleaseDate;
+    private Map<Object, Object> freeToPlayResultMap;
 
     @Before
     public void setup() throws IOException {
@@ -41,6 +42,7 @@ public class SteamAppBuilderTest {
         halfLifeResultMap = objectMapper.readValue(new File("src/test/resources/app_id_70.json"), Map.class);
         halfLifeResultMapWithTwoFieldReleaseDate = objectMapper.readValue(new File(
             "src/test/resources/app_id_70_2_field_release_date.json"), Map.class);
+        freeToPlayResultMap = objectMapper.readValue(new File("src/test/resources/f2p_game.json"), Map.class);
     }
 
     @Test
@@ -136,6 +138,14 @@ public class SteamAppBuilderTest {
         Date releaseDate = sdf.parse("11/1998");
 
         Assert.assertEquals("Release date not correct", releaseDate, steamApp.getReleaseDate());
+    }
+
+    @Test
+    public void shouldHandleFreeToPlayGame() {
+        SteamApp steamApp = SteamAppBuilder.createFromResultMap(freeToPlayResultMap);
+
+        Assert.assertNotNull(steamApp.getPrice());
+        Assert.assertTrue(steamApp.getPrice().isFreeToPlay());
     }
 
 }

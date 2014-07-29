@@ -42,6 +42,14 @@ public class Price {
         this.discountPercent = discountPercent;
     }
 
+    public boolean isFreeToPlay() {
+        if (finalPrice == null) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
