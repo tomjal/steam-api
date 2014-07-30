@@ -158,4 +158,13 @@ public class SteamAppBuilderTest {
         Assert.assertNotNull(steamApp.getReleaseDate());
     }
 
+    @Test
+    public void shouldContainMetacriticData() {
+        SteamApp steamApp = SteamAppBuilder.createFromResultMap(halfLifeResultMap);
+
+        Assert.assertEquals("Metacritic score not correct", Integer.valueOf(96), steamApp.getMetacriticScore());
+        Assert.assertEquals("Metacritic url not correct", "http://www.metacritic.com/game/pc/half-life",
+            steamApp.getMetacriticUrl());
+    }
+
 }

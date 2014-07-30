@@ -70,6 +70,22 @@ public class SteamAppBuilder {
         parsePlatformData(steamApp, dataMap);
         parseCategorieData(steamApp, dataMap);
         parseReleaseData(steamApp, dataMap);
+        parseMetacriticData(steamApp, dataMap);
+    }
+
+    @SuppressWarnings(UNCHECKED)
+    private static void parseMetacriticData(SteamApp steamApp, Map<Object, Object> dataMap) {
+        Map<Object, Object> metacriticMap = (Map<Object, Object>)dataMap.get("metacritic");
+
+        if (metacriticMap == null) {
+            return;
+        }
+
+        Integer metacriticScore = (Integer)metacriticMap.get("score");
+        steamApp.setMetacriticScore(metacriticScore);
+
+        String url = (String)metacriticMap.get("url");
+        steamApp.setMetacriticUrl(url);
     }
 
     @SuppressWarnings(UNCHECKED)

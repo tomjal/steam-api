@@ -24,6 +24,8 @@ public class SteamApp {
     private boolean availableForMac;
     private List<Category> categories;
     private Date releaseDate;
+    private Integer metacriticScore;
+    private String metacriticUrl;
 
     public long getAppId() {
         return appId;
@@ -159,6 +161,22 @@ public class SteamApp {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public Integer getMetacriticScore() {
+        return metacriticScore;
+    }
+
+    public void setMetacriticScore(Integer metacriticScore) {
+        this.metacriticScore = metacriticScore;
+    }
+
+    public String getMetacriticUrl() {
+        return metacriticUrl;
+    }
+
+    public void setMetacriticUrl(String metacriticUrl) {
+        this.metacriticUrl = metacriticUrl;
     }
 
 }
