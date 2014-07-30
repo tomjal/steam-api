@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>projects.ive</groupId>
+	<groupId>com.github.go-ive</groupId>
 	<artifactId>steam-api</artifactId>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<name>Java Steam API</name>
 	<description>Retrieve data from Valves steam platform</description>
 	<url>http://github.com/go-ive/steam-api</url>
