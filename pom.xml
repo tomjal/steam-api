@@ -8,12 +8,28 @@
 	<version>1.0</version>
 	<name>Java Steam API</name>
 	<description>Retrieve data from Valves steam platform</description>
+	<url>http://github.com/go-ive/steam-api</url>
 
 	<scm>
-		<connection>scm:git:git://github.com/go-ive/steam-api.git</connection>
-		<developerConnection>scm:git:git@github.com:go-ive/steam-api.git</developerConnection>
-		<url>http://github.com/go-ive/steam-api</url>
+		<connection>scm:git:git@github.com/go-ive/steam-api.git</connection>
+		<developerConnection>scm:git:github.com/go-ive/steam-api.git</developerConnection>
+		<url>git@github.com:go-ive/steam-api.git</url>
 	</scm>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Ivan Antes-Klobucar</name>
+			<email>ivan.antesklobucar@gmail.com</email>
+			<organizationUrl>http://github.com/go-ive</organizationUrl>
+		</developer>
+	</developers>
 
 	<dependencies>
 		<dependency>
