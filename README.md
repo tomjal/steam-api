@@ -1,7 +1,7 @@
-steam-api
+Java Steam API
 =========
 
-A java library to retrieve data from Valves Steam platform
+A Java library to retrieve data from Valves Steam platform.
 
 Use it in your own code like this:
 
