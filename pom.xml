@@ -9,6 +9,12 @@
 	<name>Java Steam API</name>
 	<description>Retrieve data from Valves steam platform</description>
 
+	<scm>
+		<connection>scm:git:git://github.com/go-ive/steam-api.git</connection>
+		<developerConnection>scm:git:git@github.com:go-ive/steam-api.git</developerConnection>
+		<url>http://github.com/go-ive/steam-api</url>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -22,5 +28,34 @@
 			<version>1.9.13</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
