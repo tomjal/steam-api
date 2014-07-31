@@ -26,6 +26,7 @@ public class SteamApp {
     private Date releaseDate;
     private Integer metacriticScore;
     private String metacriticUrl;
+    private SupportInfo supportInfo;
 
     public long getAppId() {
         return appId;
@@ -177,6 +178,47 @@ public class SteamApp {
 
     public void setMetacriticUrl(String metacriticUrl) {
         this.metacriticUrl = metacriticUrl;
+    }
+
+    public SupportInfo getSupportInfo() {
+        return supportInfo;
+    }
+
+    public void setSupportInfo(SupportInfo supportInfo) {
+        this.supportInfo = supportInfo;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int)(appId ^ (appId >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SteamApp other = (SteamApp)obj;
+        if (appId != other.appId)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "SteamApp [appId=" + appId + ", type=" + type + ", name=" + name + ", requiredAge=" + requiredAge
+            + ", detailedDescription=" + detailedDescription + ", aboutTheGame=" + aboutTheGame
+            + ", supportedLanguages=" + supportedLanguages + ", headerImage=" + headerImage + ", website=" + website
+            + ", price=" + price + ", developers=" + developers + ", publishers=" + publishers + ", availableForLinux="
+            + availableForLinux + ", availableForWindows=" + availableForWindows + ", availableForMac="
+            + availableForMac + ", categories=" + categories + ", releaseDate=" + releaseDate + ", metacriticScore="
+            + metacriticScore + ", metacriticUrl=" + metacriticUrl + ", supportInfo=" + supportInfo + "]";
     }
 
 }

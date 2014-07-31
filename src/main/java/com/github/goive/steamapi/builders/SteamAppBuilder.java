@@ -1,6 +1,8 @@
 package com.github.goive.steamapi.builders;
 
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,12 +14,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.github.goive.steamapi.data.Category;
 import com.github.goive.steamapi.data.Price;
 import com.github.goive.steamapi.data.SteamApp;
+import com.github.goive.steamapi.data.SupportInfo;
 import com.github.goive.steamapi.enums.Type;
 
 public class SteamAppBuilder {
+
+    private static Logger logger = Logger.getLogger(SteamAppBuilder.class);
 
     private static final String MAC = "mac";
     private static final String LINUX = "linux";
@@ -30,6 +37,16 @@ public class SteamAppBuilder {
     private static final String INITIAL = "initial";
     private static final String FINAL = "final";
     private static final String DISCOUNT_PERCENT = "discount_percent";
+    private static final String DATE = "date";
+    private static final String RELEASE_DATE = "release_date";
+    private static final String ID = "id";
+    private static final String DESCRIPTION = "description";
+    private static final String CATEGORIES = "categories";
+    private static final String SCORE = "score";
+    private static final String METACRITIC = "metacritic";
+    private static final String EMAIL = "email";
+    private static final String URL = "url";
+    private static final String SUPPORT_INFO = "support_info";
 
     private static final String WEBSITE = "website";
     private static final String HEADER_IMAGE = "header_image";
@@ -46,7 +63,6 @@ public class SteamAppBuilder {
     @SuppressWarnings(UNCHECKED)
     public static SteamApp createFromResultMap(Map<Object, Object> resultMap) {
         SteamApp steamApp = new SteamApp();
-
         Long appId = null;
 
         Set<Object> keySet = resultMap.keySet();
@@ -71,20 +87,41 @@ public class SteamAppBuilder {
         parseCategorieData(steamApp, dataMap);
         parseReleaseData(steamApp, dataMap);
         parseMetacriticData(steamApp, dataMap);
+        parseSupportInfo(steamApp, dataMap);
+    }
+
+    @SuppressWarnings(UNCHECKED)
+    private static void parseSupportInfo(SteamApp steamApp, Map<Object, Object> dataMap) {
+        Map<Object, Object> supportInfoMap = (Map<Object, Object>)dataMap.get(SUPPORT_INFO);
+        SupportInfo supportInfo = new SupportInfo();
+
+        String url = (String)supportInfoMap.get(URL);
+        String email = (String)supportInfoMap.get(EMAIL);
+
+        try {
+            supportInfo.setUrl(new URL(url));
+        } catch (MalformedURLException e) {
+            logger.debug("Could not parse url " + url, e);
+        }
+
+        supportInfo.setEmail(email);
+
+        steamApp.setSupportInfo(supportInfo);
     }
 
     @SuppressWarnings(UNCHECKED)
     private static void parseMetacriticData(SteamApp steamApp, Map<Object, Object> dataMap) {
-        Map<Object, Object> metacriticMap = (Map<Object, Object>)dataMap.get("metacritic");
+        Map<Object, Object> metacriticMap = (Map<Object, Object>)dataMap.get(METACRITIC);
 
         if (metacriticMap == null) {
+            logger.info("No metacritic data found for " + steamApp.getAppId() + " - " + steamApp.getName());
             return;
         }
 
-        Integer metacriticScore = (Integer)metacriticMap.get("score");
+        Integer metacriticScore = (Integer)metacriticMap.get(SCORE);
         steamApp.setMetacriticScore(metacriticScore);
 
-        String url = (String)metacriticMap.get("url");
+        String url = (String)metacriticMap.get(URL);
         steamApp.setMetacriticUrl(url);
     }
 
@@ -92,17 +129,18 @@ public class SteamAppBuilder {
     private static void parseCategorieData(SteamApp steamApp, Map<Object, Object> dataMap) {
         List<Category> categories = new ArrayList<Category>();
 
-        List<Object> categoriesMap = (List<Object>)dataMap.get("categories");
+        List<Object> categoriesMap = (List<Object>)dataMap.get(CATEGORIES);
 
         if (categoriesMap == null) {
+            logger.info("No categories data found for " + steamApp.getAppId() + " - " + steamApp.getName());
             return;
         }
 
         for (Object mapObject : categoriesMap) {
             Map<Object, Object> categoryItemMap = (Map<Object, Object>)mapObject;
 
-            String description = (String)categoryItemMap.get("description");
-            int id = Integer.parseInt((String)categoryItemMap.get("id"));
+            String description = (String)categoryItemMap.get(DESCRIPTION);
+            int id = Integer.parseInt((String)categoryItemMap.get(ID));
 
             Category category = new Category(id, description);
 
@@ -136,8 +174,8 @@ public class SteamAppBuilder {
 
     @SuppressWarnings(UNCHECKED)
     private static void parseReleaseData(SteamApp steamApp, Map<Object, Object> dataMap) {
-        Map<Object, Object> releaseMap = (Map<Object, Object>)dataMap.get("release_date");
-        String dateString = (String)releaseMap.get("date");
+        Map<Object, Object> releaseMap = (Map<Object, Object>)dataMap.get(RELEASE_DATE);
+        String dateString = (String)releaseMap.get(DATE);
 
         int numFields = dateString.split(" ").length;
         switch (numFields) {
@@ -148,7 +186,7 @@ public class SteamAppBuilder {
                 Date releaseDate = sdf2.parse(dateString);
                 steamApp.setReleaseDate(releaseDate);
             } catch (ParseException e) {
-                e.printStackTrace();
+                logger.error("Could not parse release date for appId " + steamApp.getAppId(), e);
             }
 
             break;
@@ -159,12 +197,12 @@ public class SteamAppBuilder {
                 Date releaseDate = sdf3.parse(dateString);
                 steamApp.setReleaseDate(releaseDate);
             } catch (ParseException e) {
-                e.printStackTrace();
+                logger.error("Could not parse release date for appId " + steamApp.getAppId(), e);
             }
 
             break;
         default:
-            // log error and don't parse
+            logger.error("Unknown date pattern for " + steamApp.getAppId() + ". " + dateString);
         }
     }
 
@@ -181,6 +219,8 @@ public class SteamAppBuilder {
         try {
             requiredAge = (Integer)dataMap.get(REQUIRED_AGE);
         } catch (ClassCastException e) {
+            logger.debug("Could not parse required age for appId " + steamApp.getAppId()
+                + " as integer. Trying string...", e);
             requiredAge = Integer.valueOf((String)dataMap.get(REQUIRED_AGE));
         }
 
@@ -212,6 +252,7 @@ public class SteamAppBuilder {
         steamApp.setPrice(price);
 
         if (priceOverview == null) {
+            logger.info("No price data found. Assuming " + steamApp.getAppId() + " is free to play.");
             return;
         }
 
@@ -236,6 +277,7 @@ public class SteamAppBuilder {
             }
         }
 
+        logger.warn("No type specified for " + typeValue);
         return Type.UNDEFINED;
     }
 

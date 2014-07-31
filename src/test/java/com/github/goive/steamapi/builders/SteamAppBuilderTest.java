@@ -168,4 +168,11 @@ public class SteamAppBuilderTest {
             steamApp.getMetacriticUrl());
     }
 
+    @Test
+    public void shouldContainSupportInfo() {
+        SteamApp steamApp = SteamAppBuilder.createFromResultMap(halfLifeResultMap);
+
+        Assert.assertNotNull(steamApp.getSupportInfo());
+        Assert.assertEquals("URL not correct", "http://www.google.com", steamApp.getSupportInfo().getUrl().toString());
+    }
 }
