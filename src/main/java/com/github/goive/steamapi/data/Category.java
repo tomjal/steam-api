@@ -1,4 +1,4 @@
-package projects.ive.steamapi.data;
+package com.github.goive.steamapi.data;
 
 public class Category {
 

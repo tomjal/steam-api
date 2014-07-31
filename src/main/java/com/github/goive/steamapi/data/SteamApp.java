@@ -1,9 +1,9 @@
-package projects.ive.steamapi.data;
+package com.github.goive.steamapi.data;
 
 import java.util.Date;
 import java.util.List;
 
-import projects.ive.steamapi.enums.Type;
+import com.github.goive.steamapi.enums.Type;
 
 public class SteamApp {
 

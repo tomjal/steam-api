@@ -1,4 +1,4 @@
-package projects.ive.steamapi.utils;
+package com.github.goive.steamapi.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.goive.steamapi.utils.ResultMapUtils;
 
 public class ResultMapUtilsTest {
 

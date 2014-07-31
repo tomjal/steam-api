@@ -1,11 +1,11 @@
-package projects.ive.steamapi;
+package com.github.goive.steamapi;
 
 import java.util.Map;
 
-import projects.ive.steamapi.builders.SteamAppBuilder;
-import projects.ive.steamapi.client.SteamApiClient;
-import projects.ive.steamapi.data.SteamApp;
-import projects.ive.steamapi.exceptions.SteamApiException;
+import com.github.goive.steamapi.builders.SteamAppBuilder;
+import com.github.goive.steamapi.client.SteamApiClient;
+import com.github.goive.steamapi.data.SteamApp;
+import com.github.goive.steamapi.exceptions.SteamApiException;
 
 public class SteamApi {
 

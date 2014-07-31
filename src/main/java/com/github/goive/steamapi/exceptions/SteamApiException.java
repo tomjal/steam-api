@@ -1,4 +1,4 @@
-package projects.ive.steamapi.exceptions;
+package com.github.goive.steamapi.exceptions;
 
 public class SteamApiException extends Exception {
 

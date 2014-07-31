@@ -1,4 +1,4 @@
-package projects.ive.steamapi.builders;
+package com.github.goive.steamapi.builders;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -12,10 +12,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import projects.ive.steamapi.data.Category;
-import projects.ive.steamapi.data.Price;
-import projects.ive.steamapi.data.SteamApp;
-import projects.ive.steamapi.enums.Type;
+import com.github.goive.steamapi.data.Category;
+import com.github.goive.steamapi.data.Price;
+import com.github.goive.steamapi.data.SteamApp;
+import com.github.goive.steamapi.enums.Type;
 
 public class SteamAppBuilder {
 

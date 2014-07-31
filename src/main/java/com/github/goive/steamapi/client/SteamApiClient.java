@@ -1,4 +1,4 @@
-package projects.ive.steamapi.client;
+package com.github.goive.steamapi.client;
 
 import java.io.IOException;
 import java.net.URL;
@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import projects.ive.steamapi.exceptions.InvalidAppIdException;
-import projects.ive.steamapi.exceptions.SteamApiException;
-import projects.ive.steamapi.utils.ResultMapUtils;
+import com.github.goive.steamapi.exceptions.InvalidAppIdException;
+import com.github.goive.steamapi.exceptions.SteamApiException;
+import com.github.goive.steamapi.utils.ResultMapUtils;
 
 public class SteamApiClient {
 

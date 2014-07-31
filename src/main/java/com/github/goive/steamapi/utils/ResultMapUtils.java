@@ -1,4 +1,4 @@
-package projects.ive.steamapi.utils;
+package com.github.goive.steamapi.utils;
 
 import java.util.Map;
 import java.util.Set;

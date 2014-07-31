@@ -1,4 +1,4 @@
-package projects.ive.steamapi.builders;
+package com.github.goive.steamapi.builders;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,11 +16,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import projects.ive.steamapi.data.Category;
-import projects.ive.steamapi.data.Price;
-import projects.ive.steamapi.data.SteamApp;
-import projects.ive.steamapi.enums.Type;
-import projects.ive.steamapi.exceptions.InvalidAppIdException;
+import com.github.goive.steamapi.builders.SteamAppBuilder;
+import com.github.goive.steamapi.data.Category;
+import com.github.goive.steamapi.data.Price;
+import com.github.goive.steamapi.data.SteamApp;
+import com.github.goive.steamapi.enums.Type;
+import com.github.goive.steamapi.exceptions.InvalidAppIdException;
 
 public class SteamAppBuilderTest {
 

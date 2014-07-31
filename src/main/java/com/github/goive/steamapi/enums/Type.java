@@ -1,4 +1,4 @@
-package projects.ive.steamapi.enums;
+package com.github.goive.steamapi.enums;
 
 public enum Type {
     GAME("game"),

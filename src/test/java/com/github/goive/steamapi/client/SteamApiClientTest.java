@@ -1,4 +1,4 @@
-package projects.ive.steamapi.client;
+package com.github.goive.steamapi.client;
 
 import java.io.IOException;
 import java.util.Map;
@@ -7,8 +7,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import projects.ive.steamapi.exceptions.InvalidAppIdException;
-import projects.ive.steamapi.exceptions.SteamApiException;
+import com.github.goive.steamapi.client.SteamApiClient;
+import com.github.goive.steamapi.exceptions.InvalidAppIdException;
+import com.github.goive.steamapi.exceptions.SteamApiException;
 
 public class SteamApiClientTest {
 

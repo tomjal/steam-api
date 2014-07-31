@@ -1,4 +1,4 @@
-package projects.ive.steamapi.data;
+package com.github.goive.steamapi.data;
 
 import java.math.BigDecimal;
 import java.util.Currency;
