@@ -9,8 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.goive.steamapi.utils.ResultMapUtils;
-
 public class ResultMapUtilsTest {
 
     private Map<Object, Object> halfLifeResultMap;
@@ -27,19 +25,18 @@ public class ResultMapUtilsTest {
 
     @Test
     public void shouldRecognizeSuccesfullyRetrievedData() {
-        Assert.assertTrue(ResultMapUtils.isSuccessfullyRetrieved(halfLifeResultMap));
+        @SuppressWarnings("unchecked")
+        Map<Object, Object> innerMap = (Map<Object, Object>)halfLifeResultMap.get("70");
+
+        Assert.assertTrue(ResultMapUtils.isSuccessfullyRetrieved(innerMap));
     }
 
     @Test
     public void shouldRecognizeFailedRetrievedData() {
-        Assert.assertFalse(ResultMapUtils.isSuccessfullyRetrieved(nonSuccessfulResultMap));
-    }
+        @SuppressWarnings("unchecked")
+        Map<Object, Object> innerMap = (Map<Object, Object>)nonSuccessfulResultMap.get("7099999999999");
 
-    @Test
-    public void shouldExtractAppIdFromMap() {
-        long appId = ResultMapUtils.extractAppId(halfLifeResultMap);
-
-        Assert.assertEquals("Failed to extract appId", 70, appId);
+        Assert.assertFalse(ResultMapUtils.isSuccessfullyRetrieved(innerMap));
     }
 
 }
