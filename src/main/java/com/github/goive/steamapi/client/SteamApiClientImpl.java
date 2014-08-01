@@ -9,9 +9,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.github.goive.steamapi.exceptions.InvalidAppIdException;
 import com.github.goive.steamapi.exceptions.SteamApiException;
-import com.github.goive.steamapi.utils.ResultMapUtils;
 
 /**
  * The client that connects to the Steam API to retrieve the data for the given appId.
@@ -54,10 +52,6 @@ public class SteamApiClientImpl implements SteamApiClient {
     @Override
     public Map<Object, Object> retrieveResultBodyMap(long appId) throws SteamApiException {
         Map<Object, Object> resultMap = fetchResultMap(appId + "");
-
-        if (!ResultMapUtils.isSuccessfullyRetrieved(resultMap)) {
-            throw new InvalidAppIdException(appId + "");
-        }
 
         return resultMap;
     }
