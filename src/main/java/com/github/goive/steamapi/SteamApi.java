@@ -26,7 +26,7 @@ public class SteamApi {
     public static SteamApp retrieveData(long appId) throws SteamApiException {
         SteamApiClient client = new SteamApiClientImpl();
 
-        Map<Object, Object> bodyMapForId = client.retrieveResultBodyMapForId(appId);
+        Map<Object, Object> bodyMapForId = client.retrieveResultBodyMap(appId);
 
         return SteamAppBuilder.createFromResultMap(bodyMapForId);
     }

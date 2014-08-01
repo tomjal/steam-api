@@ -4,9 +4,9 @@ public class InvalidAppIdException extends SteamApiException {
 
     private static final long serialVersionUID = 720149258778294094L;
 
-    private long appId;
+    private String appId;
 
-    public InvalidAppIdException(Long appId) {
+    public InvalidAppIdException(String appId) {
         this.appId = appId;
     }
 
@@ -15,11 +15,11 @@ public class InvalidAppIdException extends SteamApiException {
         return "The given appId is invalid: " + appId;
     }
 
-    public long getAppId() {
+    public String getAppId() {
         return appId;
     }
 
-    public void setAppId(long appId) {
+    public void setAppId(String appId) {
         this.appId = appId;
     }
 
