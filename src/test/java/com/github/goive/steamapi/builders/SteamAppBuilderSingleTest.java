@@ -1,53 +1,21 @@
 package com.github.goive.steamapi.builders;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.Date;
-import java.util.Map;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import com.github.goive.steamapi.builders.SteamAppBuilder;
 import com.github.goive.steamapi.data.Category;
 import com.github.goive.steamapi.data.Price;
 import com.github.goive.steamapi.data.SteamApp;
 import com.github.goive.steamapi.enums.Type;
 import com.github.goive.steamapi.exceptions.InvalidAppIdException;
 
-public class SteamAppBuilderTest {
-
-    private static final long HALF_LIFE_APP_ID = 70L;
-
-    private Map<Object, Object> halfLifeResultMap;
-    private Map<Object, Object> halfLifeResultMapWithTwoFieldReleaseDate;
-    private Map<Object, Object> freeToPlayResultMap;
-    private Map<Object, Object> oneDigitReleaseDayResultMap;
-
-    @Before
-    public void setup() throws IOException {
-        initMaps();
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initMaps() throws IOException, JsonParseException, JsonMappingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        halfLifeResultMap = objectMapper.readValue(new File("src/test/resources/app_id_70.json"), Map.class);
-        halfLifeResultMapWithTwoFieldReleaseDate = objectMapper.readValue(new File(
-            "src/test/resources/app_id_70_2_field_release_date.json"), Map.class);
-        freeToPlayResultMap = objectMapper.readValue(new File("src/test/resources/f2p_game.json"), Map.class);
-        oneDigitReleaseDayResultMap = objectMapper.readValue(new File("src/test/resources/one_digit_release_day.json"),
-            Map.class);
-    }
+public class SteamAppBuilderSingleTest extends AbstractSteamAppBuilderTest {
 
     @Test
     public void shouldCreateSteamApp() throws InvalidAppIdException {

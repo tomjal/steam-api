@@ -22,12 +22,14 @@ import com.github.goive.steamapi.data.Price;
 import com.github.goive.steamapi.data.SteamApp;
 import com.github.goive.steamapi.data.SupportInfo;
 import com.github.goive.steamapi.enums.Type;
+import com.github.goive.steamapi.exceptions.InvalidAppIdException;
+import com.github.goive.steamapi.utils.ResultMapUtils;
 
 /**
  * This builder creates a {@link SteamApp} object from a result map created by a {@link SteamApiClient}.
  * 
  * @author Ivan Antes-Klobucar
- * @version 1.1
+ * @version 1.1.1
  */
 public class SteamAppBuilder {
 
@@ -67,18 +69,46 @@ public class SteamAppBuilder {
 
     private static final String UNCHECKED = "unchecked";
 
-    @SuppressWarnings(UNCHECKED)
     public static SteamApp createFromResultMap(Map<Object, Object> resultMap) {
-        SteamApp steamApp = new SteamApp();
-        Long appId = null;
+        SteamApp steamApp = null;
+
+        Set<Object> keySet = resultMap.keySet();
+        for (Object appIdKey : keySet) {
+            Long appId = Long.parseLong((String)appIdKey);
+            steamApp = createSteamApp(appId, resultMap);
+        }
+
+        return steamApp;
+    }
+
+    public static List<SteamApp> createListOfResultMaps(Map<Object, Object> resultMap) {
+        List<SteamApp> result = new ArrayList<SteamApp>();
 
         Set<Object> keySet = resultMap.keySet();
         for (Object object : keySet) {
-            appId = Long.parseLong((String)object);
-            steamApp.setAppId(appId);
+            Long appId = Long.parseLong((String)object);
+            try {
+                SteamApp steamApp = createSteamApp(appId, resultMap);
+                result.add(steamApp);
+            } catch (InvalidAppIdException e) {
+                logger.warn("Application with appId " + appId + " was not successfully retrieved.");
+            }
         }
 
+        return result;
+    }
+
+    @SuppressWarnings(UNCHECKED)
+    private static SteamApp createSteamApp(Long appId, Map<Object, Object> resultMap) throws InvalidAppIdException {
+        SteamApp steamApp = new SteamApp();
+        steamApp.setAppId(appId);
+
         Map<Object, Object> innerMap = (Map<Object, Object>)resultMap.get(appId.toString());
+
+        if (!ResultMapUtils.isSuccessfullyRetrieved(innerMap)) {
+            throw new InvalidAppIdException(appId + "");
+        }
+
         Map<Object, Object> dataMap = (Map<Object, Object>)innerMap.get(DATA);
 
         fillFields(steamApp, dataMap);
