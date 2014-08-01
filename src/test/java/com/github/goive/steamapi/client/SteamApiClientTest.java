@@ -5,7 +5,6 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.goive.steamapi.exceptions.InvalidAppIdException;
 import com.github.goive.steamapi.exceptions.SteamApiException;
 
 public class SteamApiClientTest extends AbstractSteamApiClientTest {
@@ -18,9 +17,12 @@ public class SteamApiClientTest extends AbstractSteamApiClientTest {
         Assert.assertTrue(resultBodyMap.containsKey(String.valueOf(HALF_LIFE_APP_ID)));
     }
 
-    @Test(expected = InvalidAppIdException.class)
+    @Test
     public void shouldFailToRetrieveResultBodyMapFromSteamWithOneId() throws SteamApiException {
-        client.retrieveResultBodyMap(NOT_EXISTING_ID);
+        Map<Object, Object> resultBodyMap = client.retrieveResultBodyMap(NOT_EXISTING_ID);
+
+        Assert.assertNotNull(resultBodyMap);
+        Assert.assertTrue(resultBodyMap.containsKey(String.valueOf(NOT_EXISTING_ID)));
     }
 
     @Test(expected = SteamApiException.class)
