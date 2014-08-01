@@ -1,5 +1,11 @@
 package com.github.goive.steamapi.data;
 
+/**
+ * Represents a category for the application. Examples may be "single player", "multi player", "co-op", etc.
+ * 
+ * @author Ivan Antes-Klobucar
+ * @version 1.1
+ */
 public class Category {
 
     private int id;

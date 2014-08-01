@@ -16,12 +16,19 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.github.goive.steamapi.client.SteamApiClient;
 import com.github.goive.steamapi.data.Category;
 import com.github.goive.steamapi.data.Price;
 import com.github.goive.steamapi.data.SteamApp;
 import com.github.goive.steamapi.data.SupportInfo;
 import com.github.goive.steamapi.enums.Type;
 
+/**
+ * This builder creates a {@link SteamApp} object from a result map created by a {@link SteamApiClient}.
+ * 
+ * @author Ivan Antes-Klobucar
+ * @version 1.1
+ */
 public class SteamAppBuilder {
 
     private static Logger logger = Logger.getLogger(SteamAppBuilder.class);

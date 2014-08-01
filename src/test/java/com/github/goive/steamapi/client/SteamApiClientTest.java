@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.goive.steamapi.client.SteamApiClient;
+import com.github.goive.steamapi.client.SteamApiClientImpl;
 import com.github.goive.steamapi.exceptions.InvalidAppIdException;
 import com.github.goive.steamapi.exceptions.SteamApiException;
 
@@ -16,11 +16,11 @@ public class SteamApiClientTest {
     private static final long HALF_LIFE_APP_ID = 70L;
     private static final long NOT_EXISTING_ID = 7099999999999L;
 
-    private SteamApiClient client;
+    private SteamApiClientImpl client;
 
     @Before
     public void setup() throws IOException {
-        client = new SteamApiClient();
+        client = new SteamApiClientImpl();
     }
 
     @Test
@@ -38,7 +38,7 @@ public class SteamApiClientTest {
 
     @Test(expected = SteamApiException.class)
     public void shouldFailToCallSteamApi() throws SteamApiException {
-        client = new SteamApiClient("invalidurl");
+        client = new SteamApiClientImpl("invalidurl");
         client.retrieveResultBodyMapForId(HALF_LIFE_APP_ID);
     }
 

@@ -3,6 +3,12 @@ package com.github.goive.steamapi.data;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+/**
+ * Represents pricing data for the application and contains relevant fields.
+ * 
+ * @author Ivan Antes-Klobucar
+ * @version 1.1
+ */
 public class Price {
 
     private Currency currency;

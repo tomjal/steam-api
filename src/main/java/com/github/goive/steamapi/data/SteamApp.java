@@ -5,6 +5,13 @@ import java.util.List;
 
 import com.github.goive.steamapi.enums.Type;
 
+/**
+ * Represents an application entry from the Steam database. Fields may be empty if there was no entry in the
+ * corresponding JSON object.
+ * 
+ * @author Ivan Antes-Klobucar
+ * @version 1.1
+ */
 public class SteamApp {
 
     private long appId;
@@ -100,6 +107,11 @@ public class SteamApp {
         this.website = website;
     }
 
+    /**
+     * Returns pricing information of the application.
+     * 
+     * @return {@link Price} containing further pricing information. If empty, the application is free.
+     */
     public Price getPrice() {
         return price;
     }
@@ -148,6 +160,11 @@ public class SteamApp {
         this.availableForMac = availableForMac;
     }
 
+    /**
+     * Returns a list of categories for the application.
+     * 
+     * @return A list of {@link Category} objects containing categories like "single player".
+     */
     public List<Category> getCategories() {
         return categories;
     }
@@ -180,6 +197,11 @@ public class SteamApp {
         this.metacriticUrl = metacriticUrl;
     }
 
+    /**
+     * Returns support information for the applications like e-mail address and url.
+     * 
+     * @return {@link SupportInfo} object containing data about the application.
+     */
     public SupportInfo getSupportInfo() {
         return supportInfo;
     }

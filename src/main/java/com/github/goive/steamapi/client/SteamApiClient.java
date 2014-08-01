@@ -1,45 +1,24 @@
 package com.github.goive.steamapi.client;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
-import com.github.goive.steamapi.exceptions.InvalidAppIdException;
 import com.github.goive.steamapi.exceptions.SteamApiException;
-import com.github.goive.steamapi.utils.ResultMapUtils;
 
-public class SteamApiClient {
+/**
+ * Specifies a client implementation of the Steam store API.
+ * 
+ * @author Ivan Antes-Klobucar
+ * @version 1.1
+ */
+public interface SteamApiClient {
 
-    private String apiUrl = "http://store.steampowered.com/api/appdetails?appids=";
-
-    public SteamApiClient() {
-
-    }
-
-    public SteamApiClient(String customApiUrl) {
-        this.apiUrl = customApiUrl;
-    }
-
-    @SuppressWarnings("unchecked")
-    public Map<Object, Object> retrieveResultBodyMapForId(long appId) throws SteamApiException {
-        Map<Object, Object> resultMap = new HashMap<Object, Object>();
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            URL src = new URL(apiUrl + appId);
-            resultMap = mapper.readValue(src, Map.class);
-        } catch (IOException e) {
-            throw new SteamApiException(e);
-        }
-
-        if (!ResultMapUtils.isSuccessfullyRetrieved(resultMap)) {
-            throw new InvalidAppIdException(appId);
-        }
-
-        return resultMap;
-    }
+    /**
+     * Retrieves a {@link Map} representing the JSON structure of the response.
+     * 
+     * @param appId Unique ID of the Steam application (visible in URL on Steam store page)
+     * @return Map representation of the JSON object returned by the API
+     * @throws SteamApiException
+     */
+    Map<Object, Object> retrieveResultBodyMapForId(long appId) throws SteamApiException;
 
 }

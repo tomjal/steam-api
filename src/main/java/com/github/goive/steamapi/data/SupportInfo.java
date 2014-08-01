@@ -2,6 +2,12 @@ package com.github.goive.steamapi.data;
 
 import java.net.URL;
 
+/**
+ * Represents information about support for the application and contains relevant fields.
+ * 
+ * @author Ivan Antes-Klobucar
+ * @version 1.1
+ */
 public class SupportInfo {
 
     private URL url;
