@@ -49,4 +49,15 @@ public class SteamApiClientBatchTest extends AbstractSteamApiClientTest {
         Assert.assertTrue(resultBodyMap.containsKey(HALF_LIFE_APP_ID + ""));
     }
 
+    @Test(expected = SteamApiException.class)
+    public void shouldNotCallSteamApiIfTooManyIDs() {
+        List<Long> appIds = new ArrayList<Long>();
+
+        for (int i = 1; i <= 1001; i++) {
+            appIds.add(Long.valueOf(i));
+        }
+
+        client.retrieveResultBodyMap(appIds);
+    }
+
 }

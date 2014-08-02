@@ -19,6 +19,7 @@ import com.github.goive.steamapi.exceptions.SteamApiException;
  */
 public class SteamApiClientImpl implements SteamApiClient {
 
+    private static final int MAX_APPIDS = 1000;
     private String apiUrl = "http://store.steampowered.com/api/appdetails?appids=";
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -60,6 +61,10 @@ public class SteamApiClientImpl implements SteamApiClient {
     public Map<Object, Object> retrieveResultBodyMap(List<Long> appIds) throws SteamApiException {
         if (appIds == null || appIds.isEmpty()) {
             throw new SteamApiException("No appIds given.");
+        }
+
+        if (appIds.size() > MAX_APPIDS) {
+            throw new SteamApiException("Too many appIds given. Maximum is " + MAX_APPIDS);
         }
 
         if (appIds.size() == 1) {
