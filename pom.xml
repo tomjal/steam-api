@@ -5,7 +5,7 @@
 
 	<groupId>com.github.go-ive</groupId>
 	<artifactId>steam-api</artifactId>
-	<version>2.0</version>
+	<version>2.1</version>
 	<name>Java Steam API</name>
 	<description>Retrieve data from Valves steam platform</description>
 	<url>http://github.com/go-ive/steam-api</url>

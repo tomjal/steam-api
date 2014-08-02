@@ -2,11 +2,15 @@ package com.github.goive.steamapi.data;
 
 import java.net.URL;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Represents information about support for the application and contains relevant fields.
  * 
  * @author Ivan Antes-Klobucar
- * @version 1.1
+ * @version 2.1
  */
 public class SupportInfo {
 
@@ -31,38 +35,35 @@ public class SupportInfo {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((url == null) ? 0 : url.hashCode());
-        return result;
+        return new HashCodeBuilder() //
+            .append(url) //
+            .append(email) //
+            .hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (obj == this) {
             return true;
-        if (obj == null)
+        }
+
+        if (!(obj instanceof SupportInfo)) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
+        }
+
         SupportInfo other = (SupportInfo)obj;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (url == null) {
-            if (other.url != null)
-                return false;
-        } else if (!url.equals(other.url))
-            return false;
-        return true;
+
+        return new EqualsBuilder() //
+            .append(url, other.url) //
+            .append(email, other.email) //
+            .isEquals();
     }
 
     @Override
     public String toString() {
-        return "SupportInfo [url=" + url + ", email=" + email + "]";
+        return new ToStringBuilder(url) //
+            .append(email) //
+            .toString();
     }
 
 }

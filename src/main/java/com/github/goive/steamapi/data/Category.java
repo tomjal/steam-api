@@ -1,10 +1,14 @@
 package com.github.goive.steamapi.data;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Represents a category for the application. Examples may be "single player", "multi player", "co-op", etc.
  * 
  * @author Ivan Antes-Klobucar
- * @version 1.1
+ * @version 2.1
  */
 public class Category {
 
@@ -34,24 +38,35 @@ public class Category {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+        return new HashCodeBuilder() //
+            .append(id) //
+            .append(description) //
+            .hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (obj == this) {
             return true;
-        if (obj == null)
+        }
+
+        if (!(obj instanceof Category)) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
+        }
+
         Category other = (Category)obj;
-        if (id != other.id)
-            return false;
-        return true;
+
+        return new EqualsBuilder() //
+            .append(id, other.id) //
+            .append(description, other.description) //
+            .isEquals();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(id) //
+            .append(description) //
+            .toString();
     }
 
 }

@@ -3,11 +3,15 @@ package com.github.goive.steamapi.data;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Represents pricing data for the application and contains relevant fields.
  * 
  * @author Ivan Antes-Klobucar
- * @version 1.1
+ * @version 2.1
  */
 public class Price {
 
@@ -50,48 +54,41 @@ public class Price {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((currency == null) ? 0 : currency.hashCode());
-        result = prime * result + discountPercent;
-        result = prime * result + ((finalPrice == null) ? 0 : finalPrice.hashCode());
-        result = prime * result + ((initialPrice == null) ? 0 : initialPrice.hashCode());
-        return result;
+        return new HashCodeBuilder() //
+            .append(currency) //
+            .append(initialPrice) //
+            .append(finalPrice) //
+            .append(discountPercent) //
+            .toHashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (obj == this) {
             return true;
-        if (obj == null)
+        }
+
+        if (!(obj instanceof Price)) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
+        }
+
         Price other = (Price)obj;
-        if (currency == null) {
-            if (other.currency != null)
-                return false;
-        } else if (!currency.equals(other.currency))
-            return false;
-        if (discountPercent != other.discountPercent)
-            return false;
-        if (finalPrice == null) {
-            if (other.finalPrice != null)
-                return false;
-        } else if (!finalPrice.equals(other.finalPrice))
-            return false;
-        if (initialPrice == null) {
-            if (other.initialPrice != null)
-                return false;
-        } else if (!initialPrice.equals(other.initialPrice))
-            return false;
-        return true;
+
+        return new EqualsBuilder() //
+            .append(currency, other.currency) //
+            .append(initialPrice, other.initialPrice) //
+            .append(finalPrice, other.finalPrice) //
+            .append(discountPercent, other.discountPercent) //
+            .isEquals();
     }
 
     @Override
     public String toString() {
-        return "Price [currency=" + currency + ", initialPrice=" + initialPrice + ", finalPrice=" + finalPrice
-            + ", discountPercent=" + discountPercent + "]";
+        return new ToStringBuilder(currency) //
+            .append(initialPrice) //
+            .append(finalPrice) //
+            .append(discountPercent) //
+            .toString();
     }
 
 }
