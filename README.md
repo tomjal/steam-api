@@ -7,15 +7,30 @@ A Java library to retrieve data from Valves Steam platform.
 
 Use it in your own code like this:
 
-    long appIdOfHalfLife = 70;
-    SteamApp halfLife = SteamApi.retrieveData(appIdOfHalfLife);
 
-This retrieves almost all available data for the given Steam ID product, including prices and discounts.
+	SteamApi steamApi = new SteamApiImpl();
+	long appIdOfHalfLife = 70;
+	SteamApp halfLife = steamApi.retrieveData(appIdOfHalfLife);
+	
+	// or
+	
+	List<Long> appIds = new ArrayList<Long>();
+	appIds.add(70L);
+	appIds.add(10L);
+	List<SteamApp> games = steamApi.retrieveData(appIds);
+	
+	// then
+	
+	String gameName = halfLife.getName();
+	BigDecimal price = halfLife.getPrice().getFinalPrice();
+	... and more
 
-Include it as a Maven dependency:
+This retrieves almost all available data for the given Steam ID or list of IDs, including prices and discounts.
 
-    <dependency>
-      <groupId>com.github.go-ive</groupId>
-      <artifactId>steam-api</artifactId>
-      <version>1.0.0</version>
-    </dependency>
+Maven dependency:
+
+	<dependency>
+		<groupId>com.github.go-ive</groupId>
+		<artifactId>steam-api</artifactId>
+		<version>2.0</version>
+	</dependency>
