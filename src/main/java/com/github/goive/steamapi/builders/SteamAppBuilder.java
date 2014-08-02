@@ -151,7 +151,7 @@ public class SteamAppBuilder {
         Map<Object, Object> metacriticMap = (Map<Object, Object>)dataMap.get(METACRITIC);
 
         if (metacriticMap == null) {
-            logger.info("No metacritic data found for " + steamApp.getAppId() + " - " + steamApp.getName());
+            logger.warn("No metacritic data found for " + steamApp.getAppId() + " - " + steamApp.getName());
             return;
         }
 
