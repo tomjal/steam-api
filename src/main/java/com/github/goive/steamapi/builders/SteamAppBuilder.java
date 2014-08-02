@@ -23,7 +23,6 @@ import com.github.goive.steamapi.data.SteamApp;
 import com.github.goive.steamapi.data.SupportInfo;
 import com.github.goive.steamapi.enums.Type;
 import com.github.goive.steamapi.exceptions.InvalidAppIdException;
-import com.github.goive.steamapi.utils.ResultMapUtils;
 
 /**
  * This builder creates a {@link SteamApp} object from a result map created by a {@link SteamApiClient}.
@@ -105,7 +104,7 @@ public class SteamAppBuilder {
 
         Map<Object, Object> innerMap = (Map<Object, Object>)resultMap.get(appId.toString());
 
-        if (!ResultMapUtils.isSuccessfullyRetrieved(innerMap)) {
+        if (!(Boolean)innerMap.get("success")) {
             throw new InvalidAppIdException(appId + "");
         }
 
