@@ -116,8 +116,7 @@ public class SteamAppBuilderSingleTest extends AbstractSteamAppBuilderTest {
     public void shouldHandleFreeToPlayGame() {
         SteamApp steamApp = SteamAppBuilder.createFromResultMap(freeToPlayResultMap);
 
-        Assert.assertNotNull(steamApp.getPrice());
-        Assert.assertTrue(steamApp.getPrice().isFreeToPlay());
+        Assert.assertNull(steamApp.getPrice());
     }
 
     @Test

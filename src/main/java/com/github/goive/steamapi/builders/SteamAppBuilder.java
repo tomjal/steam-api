@@ -284,13 +284,14 @@ public class SteamAppBuilder {
     @SuppressWarnings(UNCHECKED)
     private static void parsePriceData(SteamApp steamApp, Map<Object, Object> dataMap) {
         Map<Object, Object> priceOverview = (Map<Object, Object>)dataMap.get(PRICE_OVERVIEW);
-        Price price = new Price();
-        steamApp.setPrice(price);
 
         if (priceOverview == null) {
             logger.info("No price data found. Assuming " + steamApp.getAppId() + " is free to play.");
             return;
         }
+
+        Price price = new Price();
+        steamApp.setPrice(price);
 
         String currencyString = (String)priceOverview.get(CURRENCY);
         price.setCurrency(Currency.getInstance(currencyString));
