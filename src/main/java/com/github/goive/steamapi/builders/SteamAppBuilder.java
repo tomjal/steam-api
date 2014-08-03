@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
@@ -84,15 +85,16 @@ public class SteamAppBuilder {
         List<SteamApp> result = new ArrayList<SteamApp>();
 
         Set<Object> keySet = resultMap.keySet();
-        for (Object object : keySet) {
-            Long appId = Long.parseLong((String)object);
+        keySet.parallelStream().forEach((keyObject) -> {
+            Long appId = Long.parseLong((String)keyObject);
             try {
-                SteamApp steamApp = createSteamApp(appId, resultMap);
-                result.add(steamApp);
+                result.add(createSteamApp(appId, resultMap));
             } catch (InvalidAppIdException e) {
                 logger.warn("Application with appId " + appId + " was not successfully retrieved.");
             }
-        }
+        });
+
+        Collections.sort(result);
 
         return result;
     }
@@ -172,16 +174,14 @@ public class SteamAppBuilder {
             return;
         }
 
-        for (Object mapObject : categoriesMap) {
-            Map<Object, Object> categoryItemMap = (Map<Object, Object>)mapObject;
+        categoriesMap.parallelStream().forEach((categoryObject) -> {
+            Map<Object, Object> categoryItemMap = (Map<Object, Object>)categoryObject;
 
             String description = (String)categoryItemMap.get(DESCRIPTION);
             int id = Integer.parseInt((String)categoryItemMap.get(ID));
 
-            Category category = new Category(id, description);
-
-            categories.add(category);
-        }
+            categories.add(new Category(id, description));
+        });
 
         steamApp.setCategories(categories);
     }
@@ -190,13 +190,9 @@ public class SteamAppBuilder {
     private static void parsePlatformData(SteamApp steamApp, Map<Object, Object> dataMap) {
         Map<Object, Object> platformsMap = (Map<Object, Object>)dataMap.get(PLATFORMS);
 
-        Boolean windows = (Boolean)platformsMap.get(WINDOWS);
-        Boolean linux = (Boolean)platformsMap.get(LINUX);
-        Boolean mac = (Boolean)platformsMap.get(MAC);
-
-        steamApp.setAvailableForLinux(linux);
-        steamApp.setAvailableForMac(mac);
-        steamApp.setAvailableForWindows(windows);
+        steamApp.setAvailableForLinux((Boolean)platformsMap.get(LINUX));
+        steamApp.setAvailableForMac((Boolean)platformsMap.get(MAC));
+        steamApp.setAvailableForWindows((Boolean)platformsMap.get(WINDOWS));
     }
 
     @SuppressWarnings(UNCHECKED)

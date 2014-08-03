@@ -2,6 +2,8 @@ package com.github.goive.steamapi.enums;
 
 public enum Type {
     GAME("game"),
+    MOVIE("movie"),
+    DEMO("demo"),
     UNDEFINED("undefined");
 
     private String value;

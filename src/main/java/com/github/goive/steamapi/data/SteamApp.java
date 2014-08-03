@@ -16,7 +16,7 @@ import com.github.goive.steamapi.enums.Type;
  * @author Ivan Antes-Klobucar
  * @version 2.1
  */
-public class SteamApp {
+public class SteamApp implements Comparable<SteamApp> {
 
     private long appId;
     private Type type;
@@ -261,6 +261,11 @@ public class SteamApp {
             .append(metacriticUrl) //
             .append(supportInfo) //
             .toString();
+    }
+
+    @Override
+    public int compareTo(SteamApp other) {
+        return (int)(this.appId - other.appId);
     }
 
 }
