@@ -29,7 +29,7 @@ import com.github.goive.steamapi.exceptions.InvalidAppIdException;
  * This builder creates a {@link SteamApp} object from a result map created by a {@link SteamApiClient}.
  * 
  * @author Ivan Antes-Klobucar
- * @version 1.1.1
+ * @version 2.1
  */
 public class SteamAppBuilder {
 
